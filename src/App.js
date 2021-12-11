@@ -6,14 +6,15 @@ import WrongLetters from "./Components/WrongLetters";
 import Word from "./Components/Word";
 import Popup from "./Components/Popup";
 import Notification from "./Components/Notification";
+import { showNotification as show } from "./Helpers/helper";
 const words = ["application", "programming", "interface", "wizard"];
 let selectedWord = words[Math.floor(Math.random() * words.length)];
 function App() {
   console.log(selectedWord);
-  const [correctLetters, setCorrectLetters] = useState([]);
-  const [wrongLetters, setWrongLetters] = useState([]);
   const [playable, setPlayable] = useState(true);
-
+  const [wrongLetters, setWrongLetters] = useState([]);
+  const [correctLetters, setCorrectLetters] = useState([]);
+  const [showNotification, setShowNotification] = useState(false);
   useEffect(() => {
     const handleKeyDown = (event) => {
       const { key, keyCode } = event;
@@ -24,13 +25,13 @@ function App() {
           if (!correctLetters.includes(letter)) {
             setCorrectLetters((currentLetters) => [...currentLetters, letter]);
           } else {
-            // showNotification();
+            show(setShowNotification);
           }
         } else {
           if (!wrongLetters.includes(letter)) {
             setWrongLetters((wrongLetters) => [...wrongLetters, letter]);
           } else {
-            // showNotification();
+            show(setShowNotification);
           }
         }
       }
@@ -48,7 +49,7 @@ function App() {
         <Word selectedWord={selectedWord} correctLetters={correctLetters} />
       </div>
       <Popup />
-      <Notification />
+      <Notification showNotification={showNotification} />
     </>
   );
 }

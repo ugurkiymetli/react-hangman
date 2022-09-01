@@ -29,6 +29,7 @@ const words = [
   "dotnet",
   "television",
   "car",
+  "test",
 ];
 let selectedWord = words[Math.floor(Math.random() * words.length)];
 
